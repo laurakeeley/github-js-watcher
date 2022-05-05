@@ -1,11 +1,38 @@
 /* global Chart */
 /* global axios */
 
+let pop = [];
+
 axios
-  .get("https://api.github.com/orgs/vuejs/repos")
+  .get("https://api.github.com/repos/vuejs/vue")
   .then(function (response) {
-    // handle success
-    console.log(response.data);
+    this.vueData = response.data;
+    // console.log(vueData);
+    let vuePop =
+      this.vueData.forks +
+      this.vueData.watchers +
+      this.vueData.subscribers_count;
+    console.log(vuePop / 3);
+    pop.push(vuePop);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+axios
+  .get("https://api.github.com/repos/angular/angular.js")
+  .then(function (response) {
+    this.angularData = response.data;
+    // console.log(angularData);
+    let angularPop =
+      this.angularData.forks +
+      this.angularData.watchers +
+      this.angularData.subscribers_count / 3;
+    console.log("angularPop", angularPop);
+    pop.push(angularPop);
   })
   .catch(function (error) {
     // handle error
@@ -19,11 +46,11 @@ const ctx = document.getElementById("myChart");
 const myChart = new Chart(ctx, {
   type: "bar",
   data: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    labels: ["Vue", "Angular", "Ember", "Svelte", "React"],
     datasets: [
       {
         label: "JavaScript Framework Watcher",
-        data: [12, 19, 3, 5, 2, 3],
+        data: pop,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",

@@ -8,11 +8,12 @@ axios
   .then(function (response) {
     this.vueData = response.data;
     // console.log(vueData);
-    let vuePop =
+    let vuePop = parseInt(
       this.vueData.forks +
-      this.vueData.watchers +
-      this.vueData.subscribers_count;
-    console.log(vuePop / 3);
+        this.vueData.watchers +
+        this.vueData.subscribers_count / 3
+    );
+    console.log("vuePop", vuePop);
     pop.push(vuePop);
   })
   .catch(function (error) {
@@ -27,10 +28,11 @@ axios
   .then(function (response) {
     this.angularData = response.data;
     // console.log(angularData);
-    let angularPop =
+    let angularPop = parseInt(
       this.angularData.forks +
-      this.angularData.watchers +
-      this.angularData.subscribers_count / 3;
+        this.angularData.watchers +
+        this.angularData.subscribers_count / 3
+    );
     console.log("angularPop", angularPop);
     pop.push(angularPop);
   })

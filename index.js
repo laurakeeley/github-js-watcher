@@ -285,10 +285,15 @@ const myChart = new Chart(ctx, {
   },
 
   options: {
+    plugins: {
+      title: {
+        display: true,
+        text: "JavaScript Framework Watcher",
+      },
+    },
     scales: {
       y: {
         beginAtZero: true,
-        // stacked: true,
       },
     },
   },
